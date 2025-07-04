@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //Default Route
-app.get('/',(req,res:Response) =>{
+app.get('/',(req:Request,res:Response) =>{
     res.send("Welcome to our Mpesa Integration Api using Node Js and Express Js")
 })
 
