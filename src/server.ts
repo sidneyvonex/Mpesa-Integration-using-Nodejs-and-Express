@@ -1,8 +1,8 @@
 import express,{Application,Request,Response} from "express";
 import dotenv from "dotenv"
 import cors from "cors"
-import { getAccessToken } from "./lib/Auth";
-import { stkPush } from "./lib/stkPushGen";
+import { getAccessToken } from "./lib/Auth.js";
+import { stkPush } from "./lib/stkPushGen.js";
 
 dotenv.config();
 
