@@ -6,7 +6,11 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
+<<<<<<< HEAD
     "build": "tsc",
+=======
+    "build": "tsc && pnpm i",
+>>>>>>> parent of 9301782 (fix: reorder build script commands in package.json for correct execution flow)
     "start": "node ./dist/server.js",
     "gen": "drizzle-kit generate",
     "migrate": " tsx src/drizzle/migrate.ts",
