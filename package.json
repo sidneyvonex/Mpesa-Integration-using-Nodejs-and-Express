@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
-    "build": " pnpm i && tsc",
+    "build": "tsc",
     "start": "node ./dist/server.js",
     "gen": "drizzle-kit generate",
     "migrate": " tsx src/drizzle/migrate.ts",

@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["ESNext", "DOM"],
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "outDir": "dist",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "outDir": "./dist",
+    "rootDir": ".",
+    "moduleResolution": "nodenext",
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    // "types": ["jest"],
+    "isolatedModules": true
   },
-  "include": ["src", "lib"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
