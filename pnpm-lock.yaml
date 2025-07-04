@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@types/node':
+        specifier: ^24.0.10
+        version: 24.0.10
       axios:
         specifier: ^1.10.0
         version: 1.10.0
@@ -60,9 +63,6 @@ importers:
       '@types/jsonwebtoken':
         specifier: ^9.0.10
         version: 9.0.10
-      '@types/node':
-        specifier: ^24.0.10
-        version: 24.0.10
       '@types/nodemailer':
         specifier: ^6.4.17
         version: 6.4.17
