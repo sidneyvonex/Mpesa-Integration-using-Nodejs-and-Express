@@ -42,13 +42,14 @@ app.post("/stk", async (req: Request, res: Response) => {
     res.status(400).json({success: false,error: "Missing CheckoutRequestID from M-Pesa response",})
     return;
 }
-    // Save to database
-    await db.insert(transactionTable).values({
-      phoneNumber,
-      transactionAmount: amount,
-      transactionStatus: "PENDING",
-      checkoutRequestID,
-    });
+
+await db.insert(transactionTable).values({
+  phoneNumber,
+  amount: amount.toString(), // ✅ convert number to string
+  transactionStatus: "Pending", // ✅ matches enum exactly
+  productName,
+  checkoutRequestID,
+});
 
     res.json({ success: true, initiateStkResponse });
   } catch (error: any) {

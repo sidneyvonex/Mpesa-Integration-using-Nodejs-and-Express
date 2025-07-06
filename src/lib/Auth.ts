@@ -22,6 +22,9 @@ try{
     //Should Return a token
     const data = await response.json()
 
+    console.log("🌟 ~ getAccessToken ~ data:", data)
+
+
     return data.access_token
 }catch(error:any){
 

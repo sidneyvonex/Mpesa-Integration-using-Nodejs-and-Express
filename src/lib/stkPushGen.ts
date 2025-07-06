@@ -72,7 +72,10 @@ export async function stkPush(
         );
 
         const data = await response.json();
+
+        console.log("🌟 ~ M-PESA STK Response:", data)
         return data;
+        
     } catch (error: any) {
         console.error("stkPush error:", error);
     }
