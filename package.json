@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
     "build": "tsc",
-    "produbuild":"pnpm i && pnpm run build",
+    "produbuild": "pnpm i && pnpm run build",
     "start": "node ./dist/server.js",
     "gen": "drizzle-kit generate",
     "migrate": "tsx src/drizzle/migrate.ts",
@@ -20,6 +20,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.10.0",
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
     "@types/node": "^24.0.10",
     "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
