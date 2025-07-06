@@ -63,58 +63,56 @@ await db.insert(transactionTable).values({
 // 📞 Safaricom Callback
 app.post("/callback", async (req: Request, res: Response) => {
   try {
-    const stkCallback = req.body?.Body?.stkCallback;
+    console.log("📥 FULL CALLBACK:", JSON.stringify(req.body, null, 2));
 
+    const stkCallback = req.body?.Body?.stkCallback;
     if (!stkCallback) {
-      console.error("❌ Invalid callback format");
-       res.status(400).json({ error: "Invalid callback format" });
+      res.status(400).json({ error: "Missing stkCallback in body" });
+      return;
+    }
+
+    const { CheckoutRequestID, ResultCode, CallbackMetadata } = stkCallback;
+    if (!CheckoutRequestID) {
+       res.status(400).json({ error: "Missing CheckoutRequestID" });
        return;
     }
 
-    const {
-      ResultCode,
-      CheckoutRequestID,
-      CallbackMetadata,
-    } = stkCallback;
-
     const transactionStatus = ResultCode === 0 ? "Completed" : "Cancelled";
 
-    let mpesaReceiptNumber: string | undefined;
-    let phoneNumber: string | undefined;
-    let amount: string | undefined;
+    let mpesaReceiptNumber = "";
+    let phoneNumber = "";
+    let amount = "";
 
-    if (CallbackMetadata?.Item) {
+    if (CallbackMetadata?.Item?.length) {
       for (const item of CallbackMetadata.Item) {
         if (item.Name === "MpesaReceiptNumber") mpesaReceiptNumber = item.Value;
-        if (item.Name === "PhoneNumber") phoneNumber = item.Value.toString();
-        if (item.Name === "Amount") amount = item.Value.toString();
+        if (item.Name === "PhoneNumber") phoneNumber = String(item.Value);
+        if (item.Name === "Amount") amount = String(item.Value);
       }
     }
 
-    const updatePayload: Record<string, any> = {
-      transactionStatus,
-    };
+    const updateData: Record<string, any> = { transactionStatus };
 
-    if (mpesaReceiptNumber) updatePayload.mpesaReceiptNumber = mpesaReceiptNumber;
-    if (phoneNumber) updatePayload.phoneNumber = phoneNumber;
-    if (amount) updatePayload.amount = amount;
+    if (mpesaReceiptNumber) updateData.mpesaReceiptNumber = mpesaReceiptNumber;
+    if (phoneNumber) updateData.phoneNumber = phoneNumber;
+    if (amount) updateData.amount = amount;
 
-    // Update the transaction in DB
     const result = await db
       .update(transactionTable)
-      .set(updatePayload)
+      .set(updateData)
       .where(eq(transactionTable.checkoutRequestID, CheckoutRequestID));
 
-    console.log("✅ Transaction updated:", result);
+    console.log("✅ DB Update Result:", result);
 
-     res.json({ success: true, status: transactionStatus });
-     return;
+    res.json({ success: true, status: transactionStatus });
+    return;
   } catch (error: any) {
-    console.error("🔥 Callback handler error:", error.message);
-     res.status(500).json({ error: "Callback handler failed" });
+    console.error("🔥 Callback error:", error);
+     res.status(500).json({ error: "Callback failed" });
      return;
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`🌟🌟 Server is running on http://localhost:${PORT}`);
