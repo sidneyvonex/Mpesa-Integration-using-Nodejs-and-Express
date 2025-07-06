@@ -38,10 +38,12 @@ app.post("/stk", async (req: Request, res: Response) => {
     const initiateStkResponse = await stkPush(accessToken, phoneNumber, amount, productName);
 
     const checkoutRequestID = initiateStkResponse?.CheckoutRequestID;
-
+    if (!checkoutRequestID) {
+    res.status(400).json({success: false,error: "Missing CheckoutRequestID from M-Pesa response",})
+    return;
+}
     // Save to database
     await db.insert(transactionTable).values({
-      id: randomUUID(),
       phoneNumber,
       transactionAmount: amount,
       transactionStatus: "PENDING",

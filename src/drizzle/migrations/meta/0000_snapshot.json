@@ -1,5 +1,5 @@
 {
-  "id": "bb78986c-f97a-4c47-a70b-392f04c62ee9",
+  "id": "665d0a6b-2381-4730-a701-b0e65c5e6758",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -8,12 +8,6 @@
       "name": "transactions",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar(36)",
-          "primaryKey": true,
-          "notNull": true
-        },
         "phone_number": {
           "name": "phone_number",
           "type": "varchar(20)",
@@ -35,7 +29,7 @@
         "checkout_request_id": {
           "name": "checkout_request_id",
           "type": "varchar(255)",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true
         },
         "mpesa_receipt_number": {
