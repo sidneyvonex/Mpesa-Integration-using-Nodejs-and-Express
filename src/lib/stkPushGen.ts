@@ -55,7 +55,7 @@ export async function stkPush(
             PartyB: shortCode,
             PhoneNumber: phoneNumber,
             CallBackURL: callbackUrl,
-            AccountReference: "Sidney Stores",
+            AccountReference: "0759861389",
             TransactionDesc: productName
         };
 
